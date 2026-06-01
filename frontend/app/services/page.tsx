@@ -1,18 +1,42 @@
 const services = [
   {
-    title: "Standard Inspection",
-    description:
-      "A detailed visual assessment of the property’s major systems, structure, and safety concerns.",
+    key: "standard",
+    title: "Standard Home Inspection",
+    price: "$399",
+    checks: [
+      "Roof",
+      "Foundation",
+      "HVAC",
+      "Plumbing",
+      "Electrical",
+      "Interior/Exterior",
+    ],
   },
   {
-    title: "Mold Testing",
-    description:
-      "Targeted testing to help identify potential moisture-related issues and indoor air quality concerns.",
-  },
-  {
+    key: "radon",
     title: "Radon Testing",
-    description:
-      "Professional radon screening with clear reporting for informed next-step decisions.",
+    price: "$150",
+    checks: [
+      "Short-term/Continuous Monitoring",
+      "Clear reporting",
+      "Mitigation recommendations",
+    ],
+  },
+  {
+    key: "mold",
+    title: "Mold / Air Quality",
+    price: "$225",
+    checks: ["Moisture inspection", "Targeted sampling", "IAQ observations"],
+  },
+  {
+    key: "wdo",
+    title: "Wood-Destroying Organism / Termite",
+    price: "$180",
+    checks: [
+      "Visible evidence of infestation",
+      "Structural wood inspection",
+      "Report with recommendations",
+    ],
   },
 ];
 
@@ -33,21 +57,54 @@ export default function ServicesPage() {
         </p>
       </div>
 
-      <section className="mt-10 grid gap-6 md:grid-cols-3">
+      <section className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {services.map((service) => (
           <article
-            key={service.title}
-            className="rounded-3xl border border-border bg-surface p-6 shadow-soft"
+            key={service.key}
+            className="rounded-2xl border border-border bg-white p-6 shadow-sm"
           >
-            <h2 className="text-xl font-semibold text-foreground">
-              {service.title}
-            </h2>
-            <p className="mt-3 text-sm leading-6 text-muted">
-              {service.description}
-            </p>
+            <div className="flex items-start justify-between">
+              <h2 className="text-lg font-semibold text-foreground">
+                {service.title}
+              </h2>
+              <div className="text-right">
+                <div className="text-sm text-muted">Starting at</div>
+                <div className="mt-1 text-xl font-bold text-foreground">
+                  {service.price}
+                </div>
+              </div>
+            </div>
+
+            <ul className="mt-4 space-y-2 text-sm leading-6 text-foreground">
+              {service.checks.map((c) => (
+                <li key={c} className="flex items-start gap-3">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+                    ✓
+                  </span>
+                  <span>{c}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-6 flex justify-end">
+              <a
+                href="/quote"
+                className="inline-flex items-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
+              >
+                Book
+              </a>
+            </div>
           </article>
         ))}
       </section>
+
+      <div className="mt-8 rounded-2xl border border-border bg-surface p-6 text-sm text-muted">
+        <strong className="text-foreground">
+          Custom Multi-Service Bundles Available:
+        </strong>{" "}
+        Combine inspections and testing for a streamlined rate and single
+        appointment. Contact us to tailor a package for your property.
+      </div>
     </main>
   );
 }
