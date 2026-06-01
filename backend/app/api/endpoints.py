@@ -1,9 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.responses import JSONResponse
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import Session
 
-from app.schemas.quote import QuoteCreate
+from app.schemas.quote import QuoteCreate, QuoteResponse
 from app.models.agent import Agent
 from app.models.quote import Quote
 from app.db.database import get_db
@@ -12,7 +11,7 @@ from app.services.email_service import send_quote_notification
 router = APIRouter()
 
 
-@router.post("/quotes", status_code=status.HTTP_201_CREATED)
+@router.post("/quotes", status_code=status.HTTP_201_CREATED, response_model=QuoteResponse)
 async def create_quote(payload: QuoteCreate, db: Session = Depends(get_db)):
     """
     Create a new quote submission.
@@ -66,21 +65,18 @@ async def create_quote(payload: QuoteCreate, db: Session = Depends(get_db)):
                 quote_id=new_quote.id,
             )
 
-        return JSONResponse(
-            status_code=status.HTTP_201_CREATED,
-            content={
-                "message": "Quote received and saved successfully",
-                "quote_id": new_quote.id,
-                "client_name": new_quote.client_name,
-                "client_email": new_quote.client_email,
-                "property_address": new_quote.property_address,
-                "property_zip": new_quote.property_zip,
-                "square_footage": new_quote.square_footage,
-                "requested_services": new_quote.requested_services,
-                "status": new_quote.status,
-                "created_at": new_quote.created_at.isoformat(),
-                "agent_id": new_quote.agent_id,
-            },
+        return QuoteResponse(
+            id=new_quote.id,
+            client_name=new_quote.client_name,
+            client_email=new_quote.client_email,
+            client_phone=new_quote.client_phone,
+            property_address=new_quote.property_address,
+            property_zip=new_quote.property_zip,
+            square_footage=new_quote.square_footage,
+            requested_services=new_quote.requested_services,
+            status=new_quote.status,
+            created_at=new_quote.created_at,
+            agent_id=new_quote.agent_id,
         )
     except OperationalError:
         db.rollback()

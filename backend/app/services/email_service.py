@@ -16,7 +16,7 @@ MAIL_FROM = os.getenv("MAIL_FROM", SMTP_USER)
 MAIL_FROM_NAME = os.getenv("MAIL_FROM_NAME", "Home Inspection Platform")
 
 
-def generate_quote_html(quote_data: QuoteCreate, quote_id: Optional[int] = None) -> str:
+def generate_quote_html(quote_data: QuoteCreate, quote_id: Optional[str] = None) -> str:
     """Generate a cleanly formatted HTML email for quote notification."""
     quote_id_text = f"Quote ID: {quote_id}<br>" if quote_id else ""
     services_html = "<ul>" + "".join(f"<li>{service}</li>" for service in quote_data.requested_services) + "</ul>"
@@ -79,7 +79,7 @@ def generate_quote_html(quote_data: QuoteCreate, quote_id: Optional[int] = None)
 async def send_quote_notification(
     quote_data: QuoteCreate,
     recipient_email: EmailStr,
-    quote_id: Optional[int] = None,
+    quote_id: Optional[str] = None,
 ) -> bool:
     try:
         html_content = generate_quote_html(quote_data, quote_id)

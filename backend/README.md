@@ -144,7 +144,7 @@ Create a new quote submission.
 ```json
 {
   "message": "Quote received and saved successfully",
-  "quote_id": 1,
+  "id": "qut-a1b2c3d4",
   "client_name": "John Doe",
   "client_email": "john@example.com",
   "property_address": "123 Main Street",
@@ -153,7 +153,7 @@ Create a new quote submission.
   "requested_services": ["roof", "plumbing", "electrical"],
   "status": "pending",
   "created_at": "2026-06-01T12:34:56",
-  "agent_id": 1
+  "agent_id": "agt-1a2b3c4d"
 }
 ```
 
@@ -168,7 +168,7 @@ Create a new quote submission.
 
 ### Agent
 
-- `id` (Primary Key)
+- `id` (Primary Key, string)
 - `name` (String)
 - `email` (String, Unique)
 - `phone` (String)
@@ -177,7 +177,7 @@ Create a new quote submission.
 
 ### Quote
 
-- `id` (Primary Key)
+- `id` (Primary Key, string)
 - `client_name` (String)
 - `client_email` (String)
 - `client_phone` (String)
@@ -186,7 +186,7 @@ Create a new quote submission.
 - `square_footage` (Integer)
 - `property_age_range` (String)
 - `requested_services` (JSON Array)
-- `agent_id` (Foreign Key → Agent)
+- `agent_id` (Foreign Key → Agent, string)
 - `status` (String, default: "pending")
 - `created_at` (DateTime)
 - Relationship: Many-to-One with Agent

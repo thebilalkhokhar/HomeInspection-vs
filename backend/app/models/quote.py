@@ -2,12 +2,13 @@ from datetime import datetime
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, JSON
 from sqlalchemy.orm import relationship
 from app.db.database import Base
+from app.core.utils import generate_prefixed_id
 
 
 class Quote(Base):
     __tablename__ = "quotes"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(String(32), primary_key=True, index=True, default=lambda: generate_prefixed_id("qut-"))
     client_name = Column(String(255), nullable=False)
     client_email = Column(String(255), nullable=False, index=True)
     client_phone = Column(String(20), nullable=False)
@@ -16,7 +17,7 @@ class Quote(Base):
     square_footage = Column(Integer, nullable=False)
     property_age_range = Column(String(50), nullable=False)
     requested_services = Column(JSON, nullable=False, default=list)
-    agent_id = Column(Integer, ForeignKey("agents.id"), nullable=True, index=True)
+    agent_id = Column(String(32), ForeignKey("agents.id"), nullable=True, index=True)
     status = Column(String(50), default="pending", nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 

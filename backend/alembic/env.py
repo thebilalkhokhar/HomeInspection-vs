@@ -15,9 +15,12 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
+from app.db.database import Base
+from app.models.agent import Agent  # noqa: F401
+from app.models.quote import Quote  # noqa: F401
+
 # add your model's MetaData object here
 # for 'autogenerate' support
-from app.db.database import Base
 target_metadata = Base.metadata
 
 # Get database URL from environment variables if available
