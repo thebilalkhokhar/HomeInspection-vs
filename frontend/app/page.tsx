@@ -82,39 +82,76 @@ export default function Home() {
       </section>
 
       {/* Section 3: Why Clients Choose Us */}
-      <section className="w-full bg-white">
-        <div className="content-shell mx-auto w-full px-4 py-16 sm:px-6 lg:px-12 lg:py-24">
+      <section className="w-full overflow-hidden border-b-2 border-black bg-white py-16 lg:py-24">
+        {/* Header */}
+        <div className="content-shell mx-auto px-4 sm:px-6 lg:px-12">
           <p className="text-sm font-semibold uppercase tracking-[0.2em]">
             Why Our Clients Choose Us
           </p>
           <h2 className="mt-3 max-w-4xl text-4xl font-semibold tracking-tight sm:text-5xl">
             Reliable inspection support designed for clarity, speed, and confidence.
           </h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {[
-              "Detailed Digital Reports",
-              "Mobile-Friendly Booking",
-              "Agent-Preferred Speed",
-              "Licensed and Certified Expertise",
-            ].map((title) => (
-              <article
-                key={title}
-                className="group relative overflow-hidden border-2 border-black bg-white p-6 transition-all duration-300 hover:-translate-y-1"
-              >
-                {/* Fill from bottom */}
-                <div className="absolute inset-x-0 bottom-0 h-0 bg-black transition-all duration-500 ease-in-out group-hover:h-full" />
+        </div>
 
-                {/* Content */}
-                <div className="relative z-10">
-                  <h3 className="text-2xl font-semibold tracking-tight transition-colors duration-300 group-hover:text-white">
-                    {title}
-                  </h3>
-                  <p className="mt-3 text-base leading-7 transition-colors duration-300 group-hover:text-white/80">
-                    Clear findings, responsive communication, and a straightforward
-                    inspection experience from start to finish.
-                  </p>
-                </div>
-              </article>
+        {/* Marquee ribbon 1 — right to left, black */}
+        <div className="relative mt-12 overflow-hidden border-y-2 border-black bg-black py-5">
+          <div className="marquee-track">
+            {[...Array(2)].map((_, copy) => (
+              <div key={copy} className="flex items-center">
+                {[
+                  { label: "Detailed Digital Reports", icon: "📄" },
+                  { label: "Mobile-Friendly Booking", icon: "📱" },
+                  { label: "Agent-Preferred Speed", icon: "⚡" },
+                  { label: "Licensed and Certified Expertise", icon: "🏅" },
+                  { label: "24-Hour Report Turnaround", icon: "🕐" },
+                  { label: "Photo-Rich Findings", icon: "📷" },
+                  { label: "Clear Recommendations", icon: "✅" },
+                  { label: "Responsive Communication", icon: "💬" },
+                ].map((item) => (
+                  <div
+                    key={`${copy}-${item.label}`}
+                    className="flex items-center gap-3 whitespace-nowrap px-10"
+                  >
+                    <span className="text-xl" aria-hidden="true">{item.icon}</span>
+                    <span className="text-sm font-semibold uppercase tracking-[0.15em] text-white">
+                      {item.label}
+                    </span>
+                    {/* Divider */}
+                    <span className="ml-10 h-1.5 w-1.5 rounded-full bg-white/40" aria-hidden="true" />
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Marquee ribbon 2 — left to right, white */}
+        <div className="relative overflow-hidden border-b-2 border-black bg-white py-5">
+          <div className="marquee-track" style={{ animationDirection: "reverse" }}>
+            {[...Array(2)].map((_, copy) => (
+              <div key={copy} className="flex items-center">
+                {[
+                  { label: "500+ Inspections Completed", icon: "🏠" },
+                  { label: "5-Star Rated", icon: "⭐" },
+                  { label: "Certified & Licensed Inspectors", icon: "📋" },
+                  { label: "Trusted by Top Agents", icon: "🤝" },
+                  { label: "Same-Week Scheduling", icon: "📅" },
+                  { label: "Serving the Greater Metro Area", icon: "📍" },
+                  { label: "100% Satisfaction Guaranteed", icon: "🎯" },
+                  { label: "Report in Hand Within 24 Hours", icon: "⏱️" },
+                ].map((item) => (
+                  <div
+                    key={`${copy}-${item.label}`}
+                    className="flex items-center gap-3 whitespace-nowrap px-10"
+                  >
+                    <span className="text-xl" aria-hidden="true">{item.icon}</span>
+                    <span className="text-sm font-semibold uppercase tracking-[0.15em] text-black">
+                      {item.label}
+                    </span>
+                    <span className="ml-10 h-1.5 w-1.5 rounded-full bg-black/30" aria-hidden="true" />
+                  </div>
+                ))}
+              </div>
             ))}
           </div>
         </div>
