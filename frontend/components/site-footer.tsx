@@ -60,13 +60,22 @@ export function SiteFooter() {
 
           {/* Brand column */}
           <div className="flex flex-col gap-6">
-            <Link href="/" className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center border-2 border-white bg-white text-sm font-semibold text-black">
-                HI
-              </span>
-              <span className="text-sm font-semibold uppercase tracking-[0.18em] text-white">
-                Home Inspection
-              </span>
+            <Link href="/" className="flex items-center gap-3 shrink-0">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="h-7 w-7"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+              </svg>
+              <div className="flex flex-col leading-none">
+                <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">Home</span>
+                <span className="text-sm font-bold uppercase tracking-[0.22em] text-white">Inspection</span>
+              </div>
             </Link>
             <p className="max-w-xs text-sm leading-7 text-white/60">
               InterNACHI Certified. State Licensed. Delivering clear,
