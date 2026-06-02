@@ -50,7 +50,7 @@ export function HomeHeroSlider() {
 
   return (
     <section className="w-full border-b-2 border-black">
-      <div className="content-shell mx-auto w-full px-4 py-12 sm:px-6 lg:px-12 lg:py-16">
+      <div className="content-shell mx-auto w-full">
         <div className="relative min-h-128 w-full overflow-hidden border-2 border-black sm:min-h-144 lg:min-h-168">
           {heroSlides.map((slide, index) => (
             <article
