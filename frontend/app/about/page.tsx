@@ -1,8 +1,8 @@
 export default function AboutPage() {
   return (
-    <main className="mx-auto w-full max-w-5xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-      <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
-        <section className="space-y-6">
+    <main className="w-full py-16 lg:py-24">
+      <div className="content-shell grid w-full gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:items-start lg:px-12">
+        <section className="w-full space-y-6">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               About
@@ -18,8 +18,8 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="flex items-center gap-6">
-            <div className="h-36 w-36 flex-shrink-0 overflow-hidden rounded-lg border border-border bg-gray-50">
+            <div className="flex items-center gap-6">
+            <div className="h-36 w-36 shrink-0 overflow-hidden rounded-lg border border-border bg-gray-50">
               {/* Placeholder portrait frame */}
               <div className="flex h-full w-full items-center justify-center text-sm text-muted">
                 Inspector Portrait

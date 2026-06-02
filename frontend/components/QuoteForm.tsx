@@ -174,7 +174,7 @@ export function QuoteForm() {
     <form onSubmit={handleSubmit} className="space-y-8">
       {successMessage ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="mx-4 max-w-xl rounded-2xl bg-white p-6 shadow-lg">
+          <div className="mx-4 w-full rounded-2xl bg-white p-6 shadow-lg">
             <h3 className="text-lg font-semibold text-foreground">
               Quote Request Received
             </h3>
@@ -185,7 +185,7 @@ export function QuoteForm() {
             <div className="mt-6 flex justify-end">
               <button
                 onClick={() => setSuccessMessage("")}
-                className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
+                className="btn-on-light inline-flex items-center justify-center px-4 py-2 text-sm font-semibold"
               >
                 Close
               </button>
@@ -220,7 +220,7 @@ export function QuoteForm() {
       ) : null}
 
       {currentStep === 1 ? (
-        <section className="space-y-6">
+        <section className="w-full space-y-6">
           <div className="grid gap-5 sm:grid-cols-2">
             <label className="grid gap-2 text-sm font-medium text-foreground">
               Zip Code
@@ -297,14 +297,14 @@ export function QuoteForm() {
             <button
               type="button"
               onClick={handleNextStep}
-              className="inline-flex items-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-soft"
+              className="btn-on-light inline-flex items-center px-6 py-3 text-sm font-semibold"
             >
               Next: Contact Details
             </button>
           </div>
         </section>
       ) : (
-        <section className="space-y-6">
+        <section className="w-full space-y-6">
           <div className="grid gap-5 sm:grid-cols-2">
             <label className="grid gap-2 text-sm font-medium text-foreground">
               Client Name
@@ -395,12 +395,12 @@ export function QuoteForm() {
             <button
               type="submit"
               disabled={isLoading}
-              className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-soft disabled:cursor-not-allowed disabled:opacity-70"
+              className="btn-on-light inline-flex items-center justify-center px-6 py-3 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-70"
             >
               {isLoading ? (
                 <>
                   <svg
-                    className="mr-3 h-4 w-4 animate-spin text-primary-foreground"
+                    className="mr-3 h-4 w-4 animate-spin text-white"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
