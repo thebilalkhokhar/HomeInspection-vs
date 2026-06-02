@@ -51,7 +51,7 @@ export function HomeHeroSlider() {
   return (
     <section className="w-full border-b-2 border-black">
       <div className="content-shell mx-auto w-full">
-        <div className="relative min-h-128 w-full overflow-hidden border-2 border-black sm:min-h-144 lg:min-h-168">
+        <div className="relative min-h-128 w-full overflow-hidden sm:min-h-144 lg:min-h-168">
 
           {/* Sliding track */}
           <div
