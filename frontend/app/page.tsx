@@ -53,27 +53,33 @@ export default function Home() {
             ].map((service) => (
               <article
                 key={service.title}
-                className="group relative overflow-hidden border-2 border-black bg-black transition-all duration-300 hover:-translate-y-1"
-                style={{ minHeight: "280px" }}
+                className="group flex flex-col border border-black transition-all duration-200 ease-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_#000000] active:translate-x-0 active:translate-y-0 active:shadow-none"
               >
-                {/* Background Image */}
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                  style={{
-                    backgroundImage: `url("${service.image}")`,
-                  }}
-                />
-                
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent transition-opacity duration-300 group-hover:from-black/90 group-hover:via-black/50 group-hover:to-black/20" />
-                
+                {/* Image */}
+                <div className="h-44 w-full overflow-hidden">
+                  <div
+                    className="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                    style={{ backgroundImage: `url("${service.image}")` }}
+                  />
+                </div>
+
                 {/* Content */}
-                <div className="relative flex h-full flex-col justify-end p-6 text-white">
-                  <h3 className="text-2xl font-semibold tracking-tight">{service.title}</h3>
-                  <p className="mt-3 text-base leading-7 text-white/80">
-                    Structured findings and practical recommendations tailored to
-                    each property.
+                <div className="flex flex-1 flex-col bg-white p-5">
+                  <h3 className="text-lg font-semibold tracking-tight">{service.title}</h3>
+                  <p className="mt-2 flex-1 text-sm leading-6 text-black/60">
+                    Structured findings and practical recommendations tailored to each property.
                   </p>
+                  <div className="mt-4">
+                    <a
+                      href={`/services/${service.title.toLowerCase().replace(/\s+/g, "-").replace(/\//g, "").replace(/--/g, "-")}`}
+                      className="inline-flex items-center gap-1.5 border border-black px-4 py-2 text-xs font-semibold uppercase tracking-widest transition-all duration-200 ease-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#000000] active:translate-x-0 active:translate-y-0 active:shadow-none"
+                    >
+                      Learn More
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="h-3 w-3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
               </article>
             ))}

@@ -161,7 +161,7 @@ export default async function ServicePage({ params }: Props) {
       </section>
 
       {/* ── 5. STAT / WHY IT MATTERS ───────────────────────────────── */}
-      <section className="w-full border-b-2 border-black bg-white">
+      <section className="w-full bg-white">
         <div className="content-shell mx-auto w-full px-4 py-16 sm:px-6 lg:px-12 lg:py-24">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
             <div>
@@ -194,7 +194,7 @@ export default async function ServicePage({ params }: Props) {
       </section>
 
       {/* ── 6. RELATED SERVICES ────────────────────────────────────── */}
-      <section className="w-full border-b-2 border-black bg-white">
+      <section className="w-full bg-white">
         <div className="content-shell mx-auto w-full px-4 py-16 sm:px-6 lg:px-12 lg:py-24">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-black/40">
             Related Services
@@ -207,17 +207,19 @@ export default async function ServicePage({ params }: Props) {
               <a
                 key={rel.slug}
                 href={`/services/${rel.slug}`}
-                className="group relative overflow-hidden border-2 border-black"
-                style={{ minHeight: "220px" }}
+                className="group flex flex-col border border-black transition-all duration-200 ease-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_#000000] active:translate-x-0 active:translate-y-0 active:shadow-none"
               >
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                  style={{ backgroundImage: `url("${rel.image}")` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-                <div className="relative flex h-full flex-col justify-end p-6 text-white">
-                  <h3 className="text-lg font-semibold">{rel.title}</h3>
-                  <p className="mt-1 flex items-center gap-1 text-xs font-semibold uppercase tracking-widest text-white/60 transition-colors group-hover:text-white">
+                {/* Image */}
+                <div className="h-40 w-full overflow-hidden">
+                  <div
+                    className="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                    style={{ backgroundImage: `url("${rel.image}")` }}
+                  />
+                </div>
+                {/* Content */}
+                <div className="flex flex-1 flex-col bg-white p-5">
+                  <h3 className="text-lg font-semibold tracking-tight">{rel.title}</h3>
+                  <p className="mt-2 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-widest text-black/40 transition-colors group-hover:text-black">
                     Learn More
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="h-3 w-3">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />

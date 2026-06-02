@@ -88,7 +88,7 @@ export function TestimonialSlider() {
   return (
     <div className="mt-10">
       {/* Slider card */}
-      <div className="relative overflow-hidden border-2 border-black">
+      <div className="relative overflow-hidden border border-black transition-all duration-200 ease-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_#000000] active:translate-x-0 active:translate-y-0 active:shadow-none">
         <div
           className={`px-8 py-10 transition-opacity duration-300 sm:px-12 sm:py-14 ${
             animating ? "opacity-0" : "opacity-100"

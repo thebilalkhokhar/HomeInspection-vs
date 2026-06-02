@@ -121,17 +121,19 @@ export default function AboutPage() {
             ].map((item) => (
               <article
                 key={item.title}
-                className="group relative overflow-hidden border-2 border-black"
-                style={{ minHeight: "380px" }}
+                className="group flex flex-col border border-black transition-all duration-200 ease-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_#000000] active:translate-x-0 active:translate-y-0 active:shadow-none"
               >
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                  style={{ backgroundImage: `url("${item.image}")` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/10 transition-all duration-300 group-hover:from-black/95 group-hover:via-black/70 group-hover:to-black/30" />
-                <div className="relative flex h-full flex-col justify-end p-8 text-white">
+                {/* Image */}
+                <div className="h-52 w-full overflow-hidden">
+                  <div
+                    className="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                    style={{ backgroundImage: `url("${item.image}")` }}
+                  />
+                </div>
+                {/* Content */}
+                <div className="flex flex-1 flex-col bg-white p-8">
                   <h3 className="text-2xl font-semibold tracking-tight">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-white/80">{item.body}</p>
+                  <p className="mt-3 flex-1 text-sm leading-7 text-black/60">{item.body}</p>
                 </div>
               </article>
             ))}
@@ -220,13 +222,15 @@ export default function AboutPage() {
                 image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
               },
             ].map((member) => (
-              <div key={member.name} className="group overflow-hidden border-2 border-black">
-                <div
-                  className="h-96 w-full bg-cover bg-top transition-transform duration-500 group-hover:scale-105"
-                  style={{ backgroundImage: `url("${member.image}")` }}
-                  role="img"
-                  aria-label={`Photo of ${member.name}`}
-                />
+              <div key={member.name} className="group flex flex-col border border-black transition-all duration-200 ease-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_#000000] active:translate-x-0 active:translate-y-0 active:shadow-none">
+                <div className="h-96 w-full overflow-hidden">
+                  <div
+                    className="h-full w-full bg-cover bg-top transition-transform duration-500 group-hover:scale-105"
+                    style={{ backgroundImage: `url("${member.image}")` }}
+                    role="img"
+                    aria-label={`Photo of ${member.name}`}
+                  />
+                </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold tracking-tight">{member.name}</h3>
                   <p className="mt-1 text-sm font-semibold uppercase tracking-widest text-black/40">{member.role}</p>

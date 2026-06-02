@@ -148,7 +148,7 @@ export default function ContactPage() {
             <aside className="flex flex-col gap-6">
 
               {/* Contact info */}
-              <div className="border-2 border-black p-6">
+              <div className="border border-black p-6 transition-all duration-200 ease-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_#000000] active:translate-x-0 active:translate-y-0 active:shadow-none">
                 <h2 className="text-lg font-semibold tracking-tight">Contact Info</h2>
                 <ul className="mt-4 flex flex-col gap-4">
                   <li>
@@ -178,7 +178,7 @@ export default function ContactPage() {
               </div>
 
               {/* Hours */}
-              <div className="border-2 border-black p-6">
+              <div className="border border-black p-6 transition-all duration-200 ease-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_#000000] active:translate-x-0 active:translate-y-0 active:shadow-none">
                 <h2 className="text-lg font-semibold tracking-tight">Office Hours</h2>
                 <ul className="mt-4 flex flex-col gap-2 text-sm">
                   {[
@@ -195,7 +195,7 @@ export default function ContactPage() {
               </div>
 
               {/* Quick quote CTA */}
-              <div className="border-2 border-black bg-black p-6 text-white">
+              <div className="border border-black bg-black p-6 text-white transition-all duration-200 ease-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_#000000] active:translate-x-0 active:translate-y-0 active:shadow-none">
                 <h2 className="text-lg font-semibold tracking-tight">Need a Quote Fast?</h2>
                 <p className="mt-2 text-sm leading-6 text-white/60">
                   Skip the back-and-forth — fill out our quote form and get a response within 2 hours.

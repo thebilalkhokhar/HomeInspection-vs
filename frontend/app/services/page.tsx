@@ -94,40 +94,26 @@ export default function ServicesPage() {
             {services.map((service) => (
               <article
                 key={service.slug}
-                className="group relative overflow-hidden border-2 border-black"
-                style={{ minHeight: "360px" }}
+                className="group flex flex-col border border-black transition-all duration-200 ease-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_#000000] active:translate-x-0 active:translate-y-0 active:shadow-none"
               >
-                {/* Background image */}
                 <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                  style={{ backgroundImage: `url("${service.image}")` }}
-                />
-
-                {/* Overlay — lighter by default, darker on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20 transition-all duration-300 group-hover:from-black/95 group-hover:via-black/70 group-hover:to-black/40" />
+                  className="h-52 w-full overflow-hidden"
+                >
+                  <div
+                    className="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                    style={{ backgroundImage: `url("${service.image}")` }}
+                  />
+                </div>
 
                 {/* Content */}
-                <div className="relative z-10 flex h-full flex-col justify-end p-8 text-white">
-                  {/* Icon */}
-                  <div className="mb-4 opacity-90">
-                    {service.icon}
-                  </div>
-
-                  {/* Title */}
-                  <h2 className="text-2xl font-semibold tracking-tight">
-                    {service.title}
-                  </h2>
-
-                  {/* Description — always visible */}
-                  <p className="mt-3 text-base leading-7 text-white/80">
-                    {service.description}
-                  </p>
-
-                  {/* Learn More — always visible */}
+                <div className="flex flex-1 flex-col bg-white p-8">
+                  <div className="text-black">{service.icon}</div>
+                  <h2 className="mt-5 text-2xl font-semibold tracking-tight">{service.title}</h2>
+                  <p className="mt-3 flex-1 text-base leading-7 text-black/60">{service.description}</p>
                   <div className="mt-6">
                     <a
                       href={`/services/${service.slug}`}
-                      className="inline-flex items-center gap-2 border-2 border-white px-5 py-2.5 text-sm font-semibold uppercase tracking-widest !text-white transition-colors duration-200 hover:bg-white hover:!text-black"
+                      className="inline-flex items-center gap-2 border border-black px-5 py-2.5 text-sm font-semibold uppercase tracking-widest transition-all duration-200 ease-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_0px_#000000] active:translate-x-0 active:translate-y-0 active:shadow-none"
                     >
                       Learn More
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="h-4 w-4">
