@@ -139,23 +139,43 @@ export default async function ServicePage({ params }: Props) {
       {/* ── 4. PROCESS ─────────────────────────────────────────────── */}
       <section className="w-full border-b-2 border-black bg-black text-white">
         <div className="content-shell mx-auto w-full px-4 py-16 sm:px-6 lg:px-12 lg:py-24">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/40">
-            How It Works
-          </p>
-          <h2 className="mt-3 max-w-2xl text-4xl font-semibold tracking-tight sm:text-5xl">
-            Simple process. Clear results.
-          </h2>
+          <div className="grid gap-12 lg:grid-cols-[280px_1fr] lg:gap-16">
 
-          <div className="mt-12 grid gap-px border-2 border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
-            {service.steps.map((step, i) => (
-              <div key={step.title} className="flex flex-col gap-4 bg-black p-8">
-                <span className="text-5xl font-bold leading-none text-white/25">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="text-lg font-semibold">{step.title}</h3>
-                <p className="text-sm leading-7 text-white/60">{step.description}</p>
+            {/* Left — heading */}
+            <div className="flex flex-col justify-center">
+              <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+                How It Works
+              </h2>
+              <div className="mt-4 border-l-2 border-white/30 pl-4">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/40">
+                  Simple process. Clear results.
+                </p>
               </div>
-            ))}
+            </div>
+
+            {/* Right — steps */}
+            <div className="flex flex-col gap-8 sm:flex-row sm:gap-0">
+              {service.steps.map((step, i) => (
+                <div key={step.title} className="flex flex-1 items-start gap-0 sm:flex-col">
+                  {/* Number + connector */}
+                  <div className="flex items-center sm:w-full">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-white text-sm font-bold text-black">
+                      {i + 1}
+                    </div>
+                    {/* Connector line — hidden after last item */}
+                    {i < service.steps.length - 1 && (
+                      <div className="hidden h-px flex-1 bg-white/20 sm:block" />
+                    )}
+                  </div>
+                  {/* Text */}
+                  <div className="ml-4 sm:ml-0 sm:mt-5 sm:pr-6">
+                    <h3 className="text-base font-semibold">{step.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-white/60">{step.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
           </div>
         </div>
       </section>
