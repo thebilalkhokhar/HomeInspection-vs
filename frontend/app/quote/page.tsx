@@ -41,7 +41,7 @@ export default function QuotePage() {
             <aside className="flex flex-col gap-8">
 
               {/* What to expect */}
-              <div className="border-2 border-black p-6">
+              <div className="border border-black p-6 transition-all duration-200 ease-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_#000000] active:translate-x-0 active:translate-y-0 active:shadow-none">
                 <h2 className="text-lg font-semibold tracking-tight">What to Expect</h2>
                 <ul className="mt-4 flex flex-col gap-4">
                   {[
@@ -61,7 +61,7 @@ export default function QuotePage() {
               </div>
 
               {/* Contact */}
-              <div className="border-2 border-black p-6">
+              <div className="border border-black p-6 transition-all duration-200 ease-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_#000000] active:translate-x-0 active:translate-y-0 active:shadow-none">
                 <h2 className="text-lg font-semibold tracking-tight">Prefer to Call?</h2>
                 <p className="mt-2 text-sm leading-6 text-black/60">
                   We're available Monday–Saturday, 8am–6pm. Reach us directly and we'll get you scheduled fast.
@@ -78,7 +78,7 @@ export default function QuotePage() {
               </div>
 
               {/* Services included */}
-              <div className="border-2 border-black p-6">
+              <div className="border border-black p-6 transition-all duration-200 ease-out hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_#000000] active:translate-x-0 active:translate-y-0 active:shadow-none">
                 <h2 className="text-lg font-semibold tracking-tight">Services Available</h2>
                 <ul className="mt-4 flex flex-col gap-2">
                   {[
