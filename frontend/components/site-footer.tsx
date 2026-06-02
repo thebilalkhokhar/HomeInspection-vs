@@ -5,7 +5,7 @@ export function SiteFooter() {
     <footer className="w-full">
 
       {/* Trust / Stats Section */}
-      <section className="w-full overflow-hidden border-t-2 border-black bg-white text-black">
+      <section className="w-full overflow-hidden bg-white text-black">
         <div className="content-shell mx-auto w-full px-4 pt-16 sm:px-6 lg:px-12">
           <div className="flex flex-col gap-2">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-black/50">
