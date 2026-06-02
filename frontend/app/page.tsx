@@ -1,4 +1,5 @@
 import { HomeHeroSlider } from "@/components/home-hero-slider";
+import { TestimonialSlider } from "@/components/testimonial-slider";
 
 export default function Home() {
   const darkButton =
@@ -98,13 +99,21 @@ export default function Home() {
             ].map((title) => (
               <article
                 key={title}
-                className="border-2 border-black bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:bg-black hover:text-white"
+                className="group relative overflow-hidden border-2 border-black bg-white p-6 transition-all duration-300 hover:-translate-y-1"
               >
-                <h3 className="text-2xl font-semibold tracking-tight">{title}</h3>
-                <p className="mt-3 text-base leading-7">
-                  Clear findings, responsive communication, and a straightforward
-                  inspection experience from start to finish.
-                </p>
+                {/* Fill from bottom */}
+                <div className="absolute inset-x-0 bottom-0 h-0 bg-black transition-all duration-500 ease-in-out group-hover:h-full" />
+
+                {/* Content */}
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-semibold tracking-tight transition-colors duration-300 group-hover:text-white">
+                    {title}
+                  </h3>
+                  <p className="mt-3 text-base leading-7 transition-colors duration-300 group-hover:text-white/80">
+                    Clear findings, responsive communication, and a straightforward
+                    inspection experience from start to finish.
+                  </p>
+                </div>
               </article>
             ))}
           </div>
@@ -161,85 +170,33 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Cards */}
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                quote:
-                  "The report was clear, fast, and easy to act on. Exactly what we needed before closing.",
-                name: "Sarah M.",
-                role: "Home Buyer",
-                initials: "SM",
-              },
-              {
-                quote:
-                  "Our agent and lender both appreciated the turnaround speed and clean documentation. Made the whole process smoother.",
-                name: "James R.",
-                role: "Home Seller",
-                initials: "JR",
-              },
-              {
-                quote:
-                  "I've worked with many inspectors — the detail and clarity in their reports set them apart every time.",
-                name: "Linda K.",
-                role: "Real Estate Agent",
-                initials: "LK",
-              },
-            ].map((item) => (
-              <blockquote
-                key={item.name}
-                className="flex flex-col justify-between border-2 border-black p-6 transition-all duration-200 hover:-translate-y-1 hover:bg-black hover:text-white"
-              >
-                {/* Stars */}
-                <div>
-                  <div className="flex gap-1" aria-label="5 out of 5 stars">
-                    {[...Array(5)].map((_, i) => (
-                      <svg
-                        key={i}
-                        className="h-4 w-4 fill-current"
-                        viewBox="0 0 20 20"
-                        aria-hidden="true"
-                      >
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
+          <TestimonialSlider />
 
-                  {/* Quote */}
-                  <p className="mt-4 text-lg leading-8">
-                    &ldquo;{item.quote}&rdquo;
-                  </p>
-                </div>
+        </div>
+      </section>
 
-                {/* Author */}
-                <footer className="mt-6 flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center border-2 border-current text-xs font-bold uppercase tracking-wider">
-                    {item.initials}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold">{item.name}</p>
-                    <p className="text-xs font-medium uppercase tracking-[0.1em] opacity-60">
-                      {item.role}
-                    </p>
-                  </div>
-                </footer>
-              </blockquote>
-            ))}
-          </div>
-
-          {/* Bottom CTA */}
-          <div className="mt-12 flex flex-col items-center gap-4 border-t-2 border-black pt-12 sm:flex-row sm:justify-between">
-            <p className="text-base font-semibold sm:text-lg">
+      {/* Bottom CTA */}
+      <section
+        className="relative w-full text-white"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)), url("https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=1920&q=80")`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
+      >
+        <div className="content-shell mx-auto w-full px-4 py-16 sm:px-6 lg:px-12 lg:py-20">
+          <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
+            <p className="text-2xl font-semibold tracking-tight sm:text-3xl">
               Ready to experience the same clarity and speed?
             </p>
             <a
               href="/quote"
-              className="btn-on-light inline-flex items-center justify-center px-6 py-3 text-sm font-semibold"
+              className={darkButton}
             >
               Request a Quote
             </a>
           </div>
-
         </div>
       </section>
     </main>
