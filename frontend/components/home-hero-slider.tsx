@@ -49,9 +49,8 @@ export function HomeHeroSlider() {
   }, []);
 
   return (
-    <section className="w-full border-b-2 border-black">
-      <div className="content-shell mx-auto w-full">
-        <div className="relative min-h-128 w-full overflow-hidden sm:min-h-144 lg:min-h-168">
+    <section className="w-full">
+      <div className="relative min-h-128 w-full overflow-hidden sm:min-h-144 lg:min-h-168">
 
           {/* Sliding track */}
           <div
@@ -73,7 +72,7 @@ export function HomeHeroSlider() {
                   backgroundPosition: "center",
                 }}
               >
-                <div className="flex h-full min-h-128 w-full flex-col justify-center px-6 py-12 text-white sm:min-h-144 sm:px-10 lg:min-h-168 lg:px-14">
+                <div className="content-shell mx-auto flex h-full min-h-128 w-full flex-col justify-center px-6 py-12 text-white sm:min-h-144 sm:px-10 lg:min-h-168 lg:px-14">
                   <p className="text-sm font-semibold uppercase tracking-[0.2em]">
                     {slide.eyebrow}
                   </p>
@@ -118,7 +117,6 @@ export function HomeHeroSlider() {
             ))}
           </div>
 
-        </div>
       </div>
     </section>
   );

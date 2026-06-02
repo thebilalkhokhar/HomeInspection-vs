@@ -70,7 +70,7 @@ export default function Home() {
                 {/* Content */}
                 <div className="relative flex h-full flex-col justify-end p-6 text-white">
                   <h3 className="text-2xl font-semibold tracking-tight">{service.title}</h3>
-                  <p className="mt-3 text-base leading-7 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <p className="mt-3 text-base leading-7 text-white/80">
                     Structured findings and practical recommendations tailored to
                     each property.
                   </p>
