@@ -113,23 +113,31 @@ export default async function ServicePage({ params }: Props) {
             Every area we inspect and assess.
           </h2>
 
-          <div className="mt-12 flex flex-col gap-12">
-            {service.categories.map((cat) => (
-              <div key={cat.title}>
-                <h3 className="mb-6 border-b-2 border-black pb-3 text-xs font-bold uppercase tracking-[0.25em] text-black/40">
-                  {cat.title}
-                </h3>
-                <div className="grid gap-px border-2 border-black bg-black sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 flex flex-col gap-16">
+            {service.categories.map((cat, catIndex) => (
+              <div key={cat.title} className="grid gap-8 lg:grid-cols-[220px_1fr] lg:gap-16">
+
+                {/* Category label */}
+                <div className="relative flex flex-col justify-start pt-1">
+                  <span className="absolute -top-4 left-0 select-none text-8xl font-bold leading-none text-black/5">
+                    {String(catIndex + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="relative text-xs font-bold uppercase tracking-[0.25em] text-black/40">
+                    {cat.title}
+                  </h3>
+                  <div className="mt-2 h-px w-8 bg-black/20" />
+                </div>
+
+                {/* Items list */}
+                <div className="flex flex-col divide-y divide-black/10 border-t border-black/10">
                   {cat.items.map((item) => (
-                    <div key={item.name} className="flex flex-col gap-2 bg-white p-6">
-                      <div className="flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 shrink-0 bg-black" aria-hidden="true" />
-                        <h4 className="text-base font-semibold">{item.name}</h4>
-                      </div>
+                    <div key={item.name} className="group grid gap-2 py-5 sm:grid-cols-[200px_1fr] sm:gap-8">
+                      <h4 className="text-sm font-semibold tracking-tight">{item.name}</h4>
                       <p className="text-sm leading-6 text-black/60">{item.description}</p>
                     </div>
                   ))}
                 </div>
+
               </div>
             ))}
           </div>
