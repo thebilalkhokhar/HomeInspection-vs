@@ -11,8 +11,6 @@ type FormData = {
   clientEmail: string;
   clientPhone: string;
   propertyAddress: string;
-  agentName: string;
-  agentEmail: string;
 };
 
 const serviceOptions = [
@@ -43,8 +41,6 @@ const initialFormData: FormData = {
   clientEmail: "",
   clientPhone: "",
   propertyAddress: "",
-  agentName: "",
-  agentEmail: "",
 };
 
 export function QuoteForm() {
@@ -78,9 +74,9 @@ export function QuoteForm() {
   }
 
   function validateStepTwo() {
-    if (!formData.clientName.trim()) return "Client name is required.";
-    if (!formData.clientEmail.trim()) return "Client email is required.";
-    if (!formData.clientPhone.trim()) return "Client phone is required.";
+    if (!formData.clientName.trim()) return "Your name is required.";
+    if (!formData.clientEmail.trim()) return "Email address is required.";
+    if (!formData.clientPhone.trim()) return "Phone number is required.";
     if (!formData.propertyAddress.trim()) return "Property address is required.";
     return "";
   }
@@ -88,18 +84,47 @@ export function QuoteForm() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setErrorMessage("");
-    setSuccessMessage("");
 
     const stepTwoError = validateStepTwo();
     if (stepTwoError) { setErrorMessage(stepTwoError); return; }
 
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
+
+    try {
+      const apiBase = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ?? "";
+      const response = await fetch(`${apiBase}/api/v1/quotes`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          client_name: formData.clientName.trim(),
+          client_email: formData.clientEmail.trim(),
+          client_phone: formData.clientPhone.trim(),
+          property_address: formData.propertyAddress.trim(),
+          property_zip: formData.propertyZip.trim(),
+          square_footage: Number(formData.squareFootage),
+          property_age_range: formData.propertyAgeRange,
+          requested_services: formData.requestedServices,
+        }),
+      });
+
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        throw new Error(
+          data?.detail || data?.message || "Unable to submit the quote request."
+        );
+      }
+
       setSuccessMessage("submitted");
       setFormData(initialFormData);
       setCurrentStep(1);
-    }, 1500);
+    } catch (err) {
+      setErrorMessage(
+        err instanceof Error ? err.message : "Submission failed. Please try again."
+      );
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   function handleNextStep() {
@@ -142,9 +167,7 @@ export function QuoteForm() {
           <div key={step} className="flex items-center gap-2">
             <div
               className={`flex h-8 w-8 items-center justify-center border-2 text-xs font-bold transition-colors duration-200 ${
-                step === currentStep
-                  ? "border-black bg-black text-white"
-                  : step < currentStep
+                step === currentStep || step < currentStep
                   ? "border-black bg-black text-white"
                   : "border-black/20 text-black/30"
               }`}
@@ -218,10 +241,7 @@ export function QuoteForm() {
             </legend>
             <div className="grid gap-3 border-2 border-black p-4 sm:grid-cols-2">
               {serviceOptions.map((service) => (
-                <label
-                  key={service.value}
-                  className="flex cursor-pointer items-center gap-3 text-sm font-medium"
-                >
+                <label key={service.value} className="flex cursor-pointer items-center gap-3 text-sm font-medium">
                   <div
                     className={`flex h-5 w-5 shrink-0 items-center justify-center border-2 transition-colors duration-150 ${
                       formData.requestedServices.includes(service.value)
@@ -286,22 +306,6 @@ export function QuoteForm() {
               Property Address
               <input type="text" value={formData.propertyAddress} onChange={(e) => updateField("propertyAddress", e.target.value)} placeholder="123 Main St, City, ST" className={inputClass} />
             </label>
-          </div>
-
-          <div className="border-t-2 border-black/10 pt-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-black/40">
-              Agent Info (Optional)
-            </p>
-            <div className="mt-4 grid gap-5 sm:grid-cols-2">
-              <label className={labelClass}>
-                Agent Name
-                <input type="text" value={formData.agentName} onChange={(e) => updateField("agentName", e.target.value)} placeholder="Agent name" className={inputClass} />
-              </label>
-              <label className={labelClass}>
-                Agent Email
-                <input type="email" value={formData.agentEmail} onChange={(e) => updateField("agentEmail", e.target.value)} placeholder="agent@example.com" className={inputClass} />
-              </label>
-            </div>
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">

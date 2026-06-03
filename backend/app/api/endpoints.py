@@ -3,7 +3,9 @@ from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import Session
 
 from app.schemas.quote import QuoteCreate, QuoteResponse
+from app.schemas.contact import ContactCreate, ContactResponse
 from app.models.quote import Quote, QuoteStatus
+from app.models.contact import ContactMessage
 from app.db.database import get_db
 
 router = APIRouter()
@@ -37,6 +39,42 @@ def create_quote(payload: QuoteCreate, db: Session = Depends(get_db)):
         db.commit()
         db.refresh(new_quote)
         return new_quote
+
+    except OperationalError:
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Database connection unavailable. Please check DATABASE_URL and PostgreSQL availability.",
+        )
+    except Exception:
+        db.rollback()
+        raise
+
+
+@router.post(
+    "/contact",
+    status_code=status.HTTP_201_CREATED,
+    response_model=ContactResponse,
+)
+def create_contact_message(payload: ContactCreate, db: Session = Depends(get_db)):
+    """
+    Submit a contact message.
+
+    Validates the request payload, persists the ContactMessage record,
+    and returns the created record.
+    """
+    try:
+        new_message = ContactMessage(
+            name=payload.name,
+            email=payload.email,
+            phone=payload.phone,
+            subject=payload.subject,
+            message=payload.message,
+        )
+        db.add(new_message)
+        db.commit()
+        db.refresh(new_message)
+        return new_message
 
     except OperationalError:
         db.rollback()

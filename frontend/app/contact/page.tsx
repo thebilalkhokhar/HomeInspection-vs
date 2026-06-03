@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 
 const inputClass =
   "h-12 w-full border-2 border-black bg-white px-4 text-sm outline-none placeholder:text-black/30 focus:ring-0 transition-colors duration-150";
@@ -10,14 +10,46 @@ const labelClass =
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setErrorMessage("");
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value.trim(),
+      email: (form.elements.namedItem("email") as HTMLInputElement).value.trim(),
+      phone: (form.elements.namedItem("phone") as HTMLInputElement).value.trim() || null,
+      subject: (form.elements.namedItem("subject") as HTMLSelectElement).value || null,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim(),
+    };
+
+    try {
+      const apiBase = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ?? "";
+      const response = await fetch(`${apiBase}/api/v1/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        throw new Error(result?.detail || result?.message || "Failed to send message.");
+      }
+
       setSubmitted(true);
-    }, 1200);
+      formRef.current?.reset();
+    } catch (err) {
+      setErrorMessage(
+        err instanceof Error ? err.message : "Submission failed. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -71,31 +103,37 @@ export default function ContactPage() {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-6">
                   <div>
                     <p className="text-sm font-semibold uppercase tracking-[0.2em] text-black/40">Contact Form</p>
                     <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">Send us a message</h2>
                   </div>
 
+                  {errorMessage && (
+                    <div role="alert" className="border-2 border-red-500 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+                      {errorMessage}
+                    </div>
+                  )}
+
                   <div className="grid gap-5 sm:grid-cols-2">
                     <label className={labelClass}>
                       Your Name
-                      <input type="text" required placeholder="Jane Smith" className={inputClass} />
+                      <input name="name" type="text" required placeholder="Jane Smith" className={inputClass} />
                     </label>
                     <label className={labelClass}>
                       Email Address
-                      <input type="email" required placeholder="jane@example.com" className={inputClass} />
+                      <input name="email" type="email" required placeholder="jane@example.com" className={inputClass} />
                     </label>
                   </div>
 
                   <div className="grid gap-5 sm:grid-cols-2">
                     <label className={labelClass}>
                       Phone Number
-                      <input type="tel" placeholder="(555) 000-0000" className={inputClass} />
+                      <input name="phone" type="tel" placeholder="(555) 000-0000" className={inputClass} />
                     </label>
                     <label className={labelClass}>
                       Subject
-                      <select className={inputClass} defaultValue="">
+                      <select name="subject" className={inputClass} defaultValue="">
                         <option value="" disabled>Select a subject</option>
                         <option>General Inquiry</option>
                         <option>Request a Quote</option>
@@ -109,6 +147,7 @@ export default function ContactPage() {
                   <label className={labelClass}>
                     Message
                     <textarea
+                      name="message"
                       required
                       rows={6}
                       placeholder="Tell us about the property and what you need..."
