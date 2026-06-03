@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import React from "react";
 
 export type ToastType = "success" | "error" | "info";
 
@@ -15,7 +16,7 @@ type ToastItemProps = {
   onDismiss: (id: string) => void;
 };
 
-const icons: Record<ToastType, JSX.Element> = {
+const icons: Record<ToastType, React.ReactElement> = {
   success: (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="h-4 w-4 shrink-0">
       <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />

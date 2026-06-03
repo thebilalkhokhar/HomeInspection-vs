@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Home Inspection — Frontend
+
+Next.js 15 App Router marketing site with an integrated admin dashboard.
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router, Turbopack)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Font**: Geist (via `next/font`)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
+cp .env.local.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.local.example` to `.env.local`:
 
-## Learn More
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+frontend/
+├── app/
+│   ├── layout.tsx                  # Root layout — html/body/fonts only
+│   ├── (public)/                   # Route group — all public pages with navbar + footer
+│   │   ├── layout.tsx              # SiteNavbar + SiteFooter wrapper
+│   │   ├── page.tsx                # Home (/)
+│   │   ├── about/                  # /about
+│   │   ├── contact/                # /contact
+│   │   ├── services/               # /services + /services/[slug]
+│   │   ├── quote/                  # /quote
+│   │   ├── faq/                    # /faq
+│   │   ├── privacy/                # /privacy
+│   │   └── terms/                  # /terms
+│   ├── login/                      # /login — no navbar/footer
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   └── admin/                      # /admin/* — no navbar/footer
+│       ├── layout.tsx
+│       └── dashboard/
+│           └── page.tsx            # /admin/dashboard
+├── components/
+│   ├── site-navbar.tsx
+│   ├── site-footer.tsx
+│   ├── home-hero-slider.tsx
+│   ├── testimonial-slider.tsx
+│   ├── QuoteForm.tsx
+│   └── toast.tsx                   # Toast notification system
+└── public/
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Pages
 
-## Deploy on Vercel
+### Public
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Route | Description |
+|-------|-------------|
+| `/` | Home — hero slider, services, testimonials, CTAs |
+| `/services` | Services overview — 4 service cards |
+| `/services/[slug]` | Individual service page — dynamic, data-driven |
+| `/about` | About us — team, certifications, testimonials |
+| `/quote` | Multi-step quote request form |
+| `/contact` | Contact form + sidebar |
+| `/faq` | Accordion FAQ |
+| `/privacy` | Privacy policy |
+| `/terms` | Terms of service |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Admin (protected)
+
+| Route | Description |
+|-------|-------------|
+| `/login` | Admin login with JWT cookie auth |
+| `/admin/dashboard` | Dashboard — quotes + messages tables, status management, pagination |
+
+## Forms
+
+Both forms are wired to the backend API:
+
+- **Quote form** (`/quote`) → `POST /api/v1/quotes` — 2-step, validates property + contact details
+- **Contact form** (`/contact`) → `POST /api/v1/contact` — name, email, subject, message
+
+## Admin Dashboard
+
+- JWT cookie authentication (`credentials: "include"` on all fetch calls)
+- Quotes table with status filter (all / pending / viewed / contacted)
+- Inline status dropdown — `PATCH /api/v1/quotes/{id}`
+- Server-side pagination (12 per page)
+- Contact messages table with pagination
+- Toast notifications for login, status changes, and logout
+
+## Build
+
+```bash
+npm run build
+npm start
+```
+
+## Deploy
+
+Set `NEXT_PUBLIC_API_URL` to your deployed backend URL in Vercel environment variables. Set Root Directory to `frontend` in the Vercel project settings.
