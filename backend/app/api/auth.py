@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.orm import Session
 
@@ -35,10 +36,10 @@ def login(payload: UserLogin, response: Response, db: Session = Depends(get_db))
     response.set_cookie(
         key="access_token",
         value=token,
-        httponly=True,   # JavaScript cannot access this cookie
-        secure=True,     # Only sent over HTTPS
-        samesite="lax",  # CSRF protection
-        max_age=60 * 60 * 24 * 30,  # 30 days in seconds
+        httponly=True,
+        secure=os.getenv("COOKIE_SECURE", "true").lower() == "true",
+        samesite="lax",
+        max_age=60 * 60 * 24 * 30,
     )
 
     return user
