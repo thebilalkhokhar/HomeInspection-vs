@@ -10,8 +10,11 @@ app = FastAPI(title="Home Inspection API")
 # Allow all origins in development; restrict to frontend domain in production
 # Set ALLOWED_ORIGINS env var to a comma-separated list e.g.:
 # https://your-app.vercel.app,http://localhost:3000
-_raw_origins = os.getenv("ALLOWED_ORIGINS", "*")
-allowed_origins = [o.strip() for o in _raw_origins.split(",")] if _raw_origins != "*" else ["*"]
+_raw_origins = os.getenv("ALLOWED_ORIGINS", "*").strip()
+if not _raw_origins or _raw_origins == "*":
+    allowed_origins = ["*"]
+else:
+    allowed_origins = [o.strip() for o in _raw_origins.split(",") if o.strip()]
 
 app.add_middleware(
     CORSMiddleware,
