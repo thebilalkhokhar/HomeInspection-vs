@@ -151,8 +151,11 @@ pending → viewed → contacted
 
 1. `POST /api/v1/auth/login` with `{ email, password }`
 2. Backend verifies credentials, generates JWT, sets `access_token` HttpOnly cookie
-3. Subsequent protected requests automatically include the cookie
-4. `POST /api/v1/auth/logout` clears the cookie
+3. Cookie uses `SameSite=None; Secure` — required for cross-origin requests (e.g. Vercel frontend → Render backend)
+4. Subsequent protected requests automatically include the cookie via `credentials: "include"` in fetch
+5. `POST /api/v1/auth/logout` clears the cookie
+
+> **Note:** `SameSite=None` requires `Secure=True` (HTTPS). For local development set `COOKIE_SECURE=false` in `.env` — browsers will still send the cookie over HTTP on localhost.
 
 ## Database Models
 
