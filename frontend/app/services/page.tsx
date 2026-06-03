@@ -63,12 +63,12 @@ export default function ServicesPage() {
         }}
       >
         <div
-          className="content-shell mx-auto flex w-full min-h-128 flex-col justify-center px-6 py-12 sm:min-h-144 sm:px-10 lg:min-h-168 lg:px-14"
+          className="content-shell mx-auto flex w-full min-h-96 flex-col justify-center px-6 py-12 sm:min-h-112 sm:px-10 lg:min-h-128 lg:px-14"
         >
           <p className="text-sm font-semibold uppercase tracking-[0.2em] opacity-80">
             What We Offer
           </p>
-          <h1 className="mt-4 max-w-3xl text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl lg:text-8xl">
+          <h1 className="mt-4 max-w-3xl text-4xl font-semibold leading-[0.95] tracking-tight sm:text-5xl lg:text-6xl">
             Inspection services built for confident decisions.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 opacity-90">

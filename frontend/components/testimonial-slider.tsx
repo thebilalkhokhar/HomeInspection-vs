@@ -101,9 +101,14 @@ export function TestimonialSlider() {
 
           <StarRating />
 
-          <blockquote className="mt-4 text-2xl font-medium leading-relaxed tracking-tight sm:text-3xl lg:text-4xl">
-            {item.quote}
-          </blockquote>
+          {/* Fixed height quote area with scroll + fade hint */}
+          <div className="relative mt-4">
+            <blockquote className="h-32 overflow-y-auto pr-2 text-xl font-medium leading-relaxed tracking-tight sm:text-2xl">
+              {item.quote}
+            </blockquote>
+            {/* Fade hint at bottom */}
+            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent" />
+          </div>
 
           <footer className="mt-8 flex items-center gap-4">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center border-2 border-black text-sm font-bold uppercase tracking-wider">
