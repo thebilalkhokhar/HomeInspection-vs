@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ToastContainer, useToast } from "@/components/toast";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -194,6 +195,7 @@ export default function AdminPage() {
     }
   }, [router]);
 
+  const { toasts, addToast, dismiss } = useToast();
   const mounted = useRef(false);
 
   // Initial load
@@ -238,8 +240,9 @@ export default function AdminPage() {
       if (!res.ok) throw new Error("Failed to update status.");
       const updated: Quote = await res.json();
       setQuotes((prev) => prev.map((q) => q.id === quoteId ? updated : q));
+      addToast(`Status updated to "${newStatus}"`, "success");
     } catch {
-      // silently fail
+      addToast("Failed to update status. Please try again.", "error");
     } finally {
       setUpdatingId(null);
     }
@@ -249,8 +252,11 @@ export default function AdminPage() {
     setLoggingOut(true);
     try {
       await fetch(`${API}/api/v1/auth/logout`, { method: "POST", credentials: "include" });
-    } finally {
-      router.push("/");
+      addToast("Logged out successfully.", "success");
+      setTimeout(() => router.push("/"), 800);
+    } catch {
+      addToast("Logout failed. Please try again.", "error");
+      setLoggingOut(false);
     }
   }
 
@@ -290,6 +296,7 @@ export default function AdminPage() {
   // ---------------------------------------------------------------------------
 
   return (
+    <>
     <div className="min-h-screen bg-white text-black">
 
       {/* Header */}
@@ -479,5 +486,7 @@ export default function AdminPage() {
 
       </main>
     </div>
+    <ToastContainer toasts={toasts} onDismiss={dismiss} />
+    </>
   );
 }

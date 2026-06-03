@@ -2,11 +2,13 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ToastContainer, useToast } from "@/components/toast";
 
 export default function LoginPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const { toasts, addToast, dismiss } = useToast();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -32,7 +34,8 @@ export default function LoginPage() {
         throw new Error(data?.detail || "Invalid email or password.");
       }
 
-      router.push("/admin");
+      addToast("Welcome back! Redirecting…", "success");
+      setTimeout(() => router.push("/admin"), 800);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed. Please try again.");
     } finally {
@@ -123,6 +126,7 @@ export default function LoginPage() {
           Home Inspection Admin · Restricted Access
         </p>
       </div>
+      <ToastContainer toasts={toasts} onDismiss={dismiss} />
     </main>
   );
 }
