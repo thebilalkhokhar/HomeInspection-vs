@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.models.agent import Agent
+
 from app.api.endpoints import router as api_router
 
 app = FastAPI(title="Home Inspection API")
