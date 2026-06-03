@@ -38,7 +38,7 @@ def login(payload: UserLogin, response: Response, db: Session = Depends(get_db))
         value=token,
         httponly=True,
         secure=os.getenv("COOKIE_SECURE", "true").lower() == "true",
-        samesite="lax",
+        samesite="none",
         max_age=60 * 60 * 24 * 30,
     )
 
