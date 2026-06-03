@@ -17,6 +17,8 @@ if config.config_file_name is not None:
 
 from app.db.database import Base
 from app.models.quote import Quote  # noqa: F401
+from app.models.contact import ContactMessage  # noqa: F401
+from app.models.user import User  # noqa: F401
 
 # add your model's MetaData object here
 # for 'autogenerate' support
