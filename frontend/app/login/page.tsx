@@ -35,7 +35,7 @@ export default function LoginPage() {
       }
 
       addToast("Welcome back! Redirecting…", "success");
-      setTimeout(() => router.push("/admin"), 800);
+      setTimeout(() => router.push("/admin/dashboard"), 400);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed. Please try again.");
     } finally {

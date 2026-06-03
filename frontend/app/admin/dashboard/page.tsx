@@ -253,7 +253,7 @@ export default function AdminPage() {
     try {
       await fetch(`${API}/api/v1/auth/logout`, { method: "POST", credentials: "include" });
       addToast("Logged out successfully.", "success");
-      setTimeout(() => router.push("/"), 800);
+      setTimeout(() => router.push("/"), 400);
     } catch {
       addToast("Logout failed. Please try again.", "error");
       setLoggingOut(false);
