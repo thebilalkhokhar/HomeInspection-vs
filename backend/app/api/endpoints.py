@@ -93,11 +93,39 @@ def create_contact_message(payload: ContactCreate, db: Session = Depends(get_db)
     dependencies=[Depends(get_current_user)],
 )
 def list_quotes(
+    skip: int = 0,
+    limit: int = 12,
+    status_filter: str = "all",
     db: Session = Depends(get_db),
     _: User = Depends(get_current_user),
 ):
-    """Return all quote submissions — admin only."""
-    return db.query(Quote).order_by(Quote.created_at.desc()).all()
+    """Return paginated quote submissions — admin only."""
+    query = db.query(Quote)
+    if status_filter != "all":
+        try:
+            query = query.filter(Quote.status == QuoteStatus(status_filter))
+        except ValueError:
+            raise HTTPException(status_code=400, detail=f"Invalid status: {status_filter}")
+    return query.order_by(Quote.created_at.desc()).offset(skip).limit(limit).all()
+
+
+@router.get(
+    "/quotes/count",
+    dependencies=[Depends(get_current_user)],
+)
+def count_quotes(
+    status_filter: str = "all",
+    db: Session = Depends(get_db),
+    _: User = Depends(get_current_user),
+):
+    """Return total quote count (optionally filtered by status) — admin only."""
+    query = db.query(Quote)
+    if status_filter != "all":
+        try:
+            query = query.filter(Quote.status == QuoteStatus(status_filter))
+        except ValueError:
+            raise HTTPException(status_code=400, detail=f"Invalid status: {status_filter}")
+    return {"total": query.count()}
 
 
 @router.get(
@@ -106,11 +134,25 @@ def list_quotes(
     dependencies=[Depends(get_current_user)],
 )
 def list_contact_messages(
+    skip: int = 0,
+    limit: int = 12,
     db: Session = Depends(get_db),
     _: User = Depends(get_current_user),
 ):
-    """Return all contact messages — admin only."""
-    return db.query(ContactMessage).order_by(ContactMessage.created_at.desc()).all()
+    """Return paginated contact messages — admin only."""
+    return db.query(ContactMessage).order_by(ContactMessage.created_at.desc()).offset(skip).limit(limit).all()
+
+
+@router.get(
+    "/contact/count",
+    dependencies=[Depends(get_current_user)],
+)
+def count_contact_messages(
+    db: Session = Depends(get_db),
+    _: User = Depends(get_current_user),
+):
+    """Return total contact message count — admin only."""
+    return {"total": db.query(ContactMessage).count()}
 
 
 @router.patch(
