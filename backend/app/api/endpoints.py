@@ -10,7 +10,7 @@ from app.models.contact import ContactMessage
 from app.models.quote import Quote, QuoteStatus
 from app.models.user import User
 from app.schemas.contact import ContactCreate, ContactResponse
-from app.schemas.quote import QuoteCreate, QuoteResponse
+from app.schemas.quote import QuoteCreate, QuoteResponse, QuoteStatusUpdate
 
 router = APIRouter()
 
@@ -111,3 +111,27 @@ def list_contact_messages(
 ):
     """Return all contact messages — admin only."""
     return db.query(ContactMessage).order_by(ContactMessage.created_at.desc()).all()
+
+
+@router.patch(
+    "/quotes/{quote_id}",
+    response_model=QuoteResponse,
+    dependencies=[Depends(get_current_user)],
+)
+def update_quote_status(
+    quote_id: str,
+    payload: QuoteStatusUpdate,
+    db: Session = Depends(get_db),
+    _: User = Depends(get_current_user),
+):
+    """Update the status of a quote — admin only."""
+    quote = db.query(Quote).filter(Quote.id == quote_id).first()
+    if not quote:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Quote {quote_id} not found.",
+        )
+    quote.status = payload.status  # type: ignore[assignment]
+    db.commit()
+    db.refresh(quote)
+    return quote

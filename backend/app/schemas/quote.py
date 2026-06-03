@@ -19,6 +19,11 @@ class QuoteCreate(BaseModel):
     requested_services: List[str] = Field(min_length=1)
 
 
+class QuoteStatusUpdate(BaseModel):
+    """Payload for PATCH /quotes/{id} — admin only."""
+    status: QuoteStatus
+
+
 class QuoteResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
